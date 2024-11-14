@@ -1,4 +1,8 @@
-.PHONY: build run test docker-build docker-run clean
+.PHONY: build run test docker-build docker-run clean swagger
+
+# Swagger 명령어
+swagger:
+	swag init -g cmd/api/main.go
 
 # Go 명령어
 build:

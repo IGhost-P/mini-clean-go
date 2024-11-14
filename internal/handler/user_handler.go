@@ -20,7 +20,17 @@ func NewUserHandler(userService service.UserService) *UserHandler {
     }
 }
 
-// CreateUser는 새로운 사용자를 생성하는 핸들러입니다.
+// CreateUser godoc
+// @Summary Create a new user
+// @Description Create a new user with the provided details
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body model.User true "User object"
+// @Success 201 {string} string "Created"
+// @Failure 400 {string} string "Bad Request"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /users [post]
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
     var user model.User
     if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
@@ -36,7 +46,14 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusCreated)
 }
 
-// GetUsers는 모든 사용자를 조회하는 핸들러입니다.
+// GetUsers godoc
+// @Summary Get all users
+// @Description Get a list of all users
+// @Tags users
+// @Produce json
+// @Success 200 {array} model.User
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /users [get]
 func (h *UserHandler) GetUsers(w http.ResponseWriter, r *http.Request) {
     users, err := h.userService.GetAllUsers()
     if err != nil {

@@ -1,0 +1,65 @@
+basePath: /
+definitions:
+  model.User:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact: {}
+  description: This is a sample server for a clean architecture Go application.
+  title: Mini Clean Go API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      description: Get a list of all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the provided details
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new user
+      tags:
+      - users
+swagger: "2.0"
