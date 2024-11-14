@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - ENV=development
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Redis 추가 (나중에 메모리 저장소를 Redis로 변경할 수 있음)
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
