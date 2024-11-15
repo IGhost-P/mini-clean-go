@@ -4,6 +4,7 @@ import (
     "encoding/json"
     "net/http"
 
+    "github.com/IGhost-p/mini-clean-go/internal/logger"  // logger 패키지 추가
     "github.com/IGhost-p/mini-clean-go/internal/model"
     "github.com/IGhost-p/mini-clean-go/internal/service"
 )
@@ -42,6 +43,9 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
     }
+
+    // 사용자 생성 후 로그 기록
+    logger.LogUserActivity(user, "create_user")
 
     w.WriteHeader(http.StatusCreated)
 }
